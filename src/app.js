@@ -71,7 +71,7 @@ app.delete('/students/:id', async (req, res) =>{
 	const type=req.query.type;
 	const id=req.params.id;
 	if(type.toLowerCase()==="soft") {
-		await studentModel.updateOne({_id:id},{isSelected: true});
+		await studentModel.updateOne({_id:id},{isDeleted: true});
 	}
 	else {
 		await studentModel.deleteOne({_id:id});		
