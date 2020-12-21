@@ -68,24 +68,34 @@ app.get('/students/:id', async (req, res) =>{
 // delete specific student
 app.delete('/students/:id', async (req, res) =>{
     // write your codes here
-	const id=req.params.id;
-	let st=null;
-	try {
-		st=await studentModel.find({_id:id,isDeleted: false});
-	}catch (err) {
-	}
-	if(st==null) {
-		res.statusCode=404;
-		res.end();
-		return;
-	}
 	const type=req.query.type;
+	const id=req.params.id;
 	if(type==="soft") {
-		st.isDeleted=true;
-		await studentModel.updateOne({_id:id},st);
+		let st=null;
+		try {
+			st=await studentModel.find({_id:id,isDeleted: false});
+		}catch (err) {
+		}
+		if(st==null) {
+			res.statusCode=404;
+			res.end();
+			return;
+		}
+		st[0].isDeleted=true;
+		await studentModel.updateOne({_id:id},st[0]);		
 	}
 	else {
-		await studentModel.deleteOne({_id:id});
+		let st=null;
+		try {
+			st=await studentModel.findById(id);
+		}catch (err) {
+		}
+		if(st==null) {
+			res.statusCode=404;
+			res.end();
+			return;
+		}
+		await studentModel.deleteOne({_id:id});		
 	}
 	res.statusCode=200;
 	res.end();
