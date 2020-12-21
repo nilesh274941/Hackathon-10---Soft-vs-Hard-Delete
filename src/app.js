@@ -42,7 +42,7 @@ app.post('/students', async (req, res) =>{
 	newStudent.isDeleted=false;
 	const doc=new studentModel(newStudent);
 	await doc.save();
-	res.statusCode=200;
+	res.json(doc);
 	res.end();
 })
 
