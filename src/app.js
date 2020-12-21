@@ -52,7 +52,7 @@ app.get('/students/:id', async (req, res) =>{
 	const id=req.params.id;
 	let st=null;
 	try {
-	st=await studentModel.find({_id:id,isDeleted: false});
+		st=await studentModel.find({_id:id,isDeleted: false});
 	}catch (err) {
 	}
 	if(st==null) {
@@ -71,7 +71,7 @@ app.delete('/students/:id', async (req, res) =>{
 	const id=req.params.id;
 	let st=null;
 	try {
-		st=await studentModel.findById(id);
+		st=await studentModel.find({_id:id,isDeleted: false});
 	}catch (err) {
 	}
 	if(st==null) {
