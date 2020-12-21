@@ -71,18 +71,7 @@ app.delete('/students/:id', async (req, res) =>{
 	const type=req.query.type;
 	const id=req.params.id;
 	if(type==="soft") {
-		let st=null;
-		try {
-			st=await studentModel.find({_id:id,isDeleted: false});
-		}catch (err) {
-		}
-		if(st.length===0) {
-			res.statusCode=404;
-			res.end();
-			return;
-		}
-		st[0].isDeleted=true;
-		await studentModel.updateOne({_id:id},st[0]);		
+		await studentModel.updateOne({_id:id},{isDeleted: true});		
 	}
 	else {
 		let st=null;
