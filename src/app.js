@@ -55,7 +55,7 @@ app.get('/students/:id', async (req, res) =>{
 		st=await studentModel.find({_id:id,isDeleted: false});
 	}catch (err) {
 	}
-	if(st==null) {
+	if(st==null || st.length===0) {
 		res.statusCode=404;
 	}
 	else {
